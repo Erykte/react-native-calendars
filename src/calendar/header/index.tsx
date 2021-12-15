@@ -277,11 +277,12 @@ class CalendarHeader extends Component<Props> {
         importantForAccessibility={this.props.importantForAccessibility} // Android
       >
         <View style={this.style.header}>
-          {this.renderArrow('left')}
           <View style={this.style.headerContainer}>
             {this.renderHeader()}
             {this.renderIndicator()}
+            {this.renderArrow('right')}
           </View>
+          {this.renderArrow('left')}
           {this.renderArrow('right')}
         </View>
         {this.renderDayNames()}
