@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com:Erykte/react-native-calendars"
+    "url": "git+https://github.com:Erykte/react-native-calendars#task/re-style-calendar"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
