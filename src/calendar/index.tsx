@@ -26,6 +26,7 @@ type MarkedDatesType = {
 };
 
 export interface CalendarProps extends CalendarHeaderProps, DayProps {
+  isFormatBuddhistYear?: boolean;
   /** Specify theme properties to override specific styles for calendar parts */
   theme?: Theme;
   /** Specify style for calendar container element */
