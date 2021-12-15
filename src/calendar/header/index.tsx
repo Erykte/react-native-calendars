@@ -17,7 +17,7 @@ import {
   ColorValue
 } from 'react-native';
 import {shouldUpdate} from '../../componentUpdater';
-import {formatNumbers, formatBuddhistNumbers, weekDayNames} from '../../dateutils';
+import {formatNumbers, weekDayNames} from '../../dateutils';
 import {
   CHANGE_MONTH_LEFT_ARROW,
   CHANGE_MONTH_RIGHT_ARROW,
@@ -70,6 +70,7 @@ class CalendarHeader extends Component<Props> {
   static displayName = 'CalendarHeader';
 
   static propTypes = {
+    isFormatBuddhistYear: PropTypes.bool,
     theme: PropTypes.object,
     firstDay: PropTypes.number,
     displayLoadingIndicator: PropTypes.bool,
