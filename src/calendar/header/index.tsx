@@ -185,12 +185,6 @@ class CalendarHeader extends Component<Props> {
   renderHeader = () => {
     const {renderHeader, month, monthFormat, testID, webAriaLevel, isFormatBuddhistYear} = this.props;
     const webProps = Platform.OS === 'web' ? {'aria-level': webAriaLevel} : {};
-    // console.log("monthFormat", monthFormat)
-    // console.log("month", month)
-    // console.log("month", month?.setFullYear(month.getFullYear() + 543))
-    if (isFormatBuddhistYear) {
-      month?.setFullYear(month.getFullYear() + 543);
-    };
 
     if (renderHeader) {
       return renderHeader(month);
@@ -204,7 +198,8 @@ class CalendarHeader extends Component<Props> {
           testID={testID ? `${HEADER_MONTH_NAME}-${testID}` : HEADER_MONTH_NAME}
           {...webProps}
         >
-          {formatNumbers(month?.toString(monthFormat))}
+          
+          {isFormatBuddhistYear ? `${formatNumbers(month?.toString('MMMM'))} ${formatNumbers(Number(month?.getFullYear()) + 543)}` : formatNumbers(month?.toString(monthFormat))}
         </Text>
       </Fragment>
     );
