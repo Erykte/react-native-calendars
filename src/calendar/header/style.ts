@@ -21,7 +21,9 @@ export default function (theme: Theme = {}) {
       fontFamily: appStyle.textMonthFontFamily,
       fontWeight: appStyle.textMonthFontWeight,
       color: appStyle.monthTextColor,
-      margin: 10
+      marginTop: 10,
+      marginBottom: 10,
+      marginLeft: 10,
     },
     arrow: {
       padding: 10,

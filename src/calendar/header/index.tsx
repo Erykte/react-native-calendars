@@ -291,7 +291,7 @@ class CalendarHeader extends Component<Props> {
                 {this.renderArrow('right')}
             </View>
           </TouchableOpacity>
-          <View style={this.style.chevronContainer}>
+          <View style={this.style.headerContainer}>
             {this.renderArrow('left')}
             {this.renderArrow('right')}
           </View>
