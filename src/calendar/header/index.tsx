@@ -30,7 +30,7 @@ import styleConstructor from './style';
 import {Theme, Direction} from '../../types';
 
 interface Props {
-  isFormatBuddhistYear: boolean;
+  isFormatBuddhistYear?: boolean;
   theme?: Theme;
   firstDay?: number;
   displayLoadingIndicator?: boolean;
