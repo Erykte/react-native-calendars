@@ -22,6 +22,7 @@ export type CalendarListItemProps = CalendarProps & {
 };
 
 type CalendarListItemState = {
+  isFormatBuddhistYear: boolean;
   hideArrows: boolean;
   hideExtraDays: boolean;
 };
@@ -38,6 +39,7 @@ class CalendarListItem extends Component<CalendarListItemProps, CalendarListItem
   };
 
   static defaultProps = {
+    isFormatBuddhistYear: false,
     hideArrows: true,
     hideExtraDays: true
   };
