@@ -45,6 +45,8 @@ interface Props {
   hideArrows?: boolean;
   /** Replace default arrows with custom ones (direction can be 'left' or 'right') */
   renderArrow?: (direction: Direction) => ReactNode;
+  /** Replace default arrows change year with custom ones (direction can be 'left' or 'right') */
+  renderArrowYear?: (direction: Direction) => ReactNode;
   /** Handler which gets executed when press arrow icon left. It receive a callback can go back month */
   onPressArrowLeft?: (method: () => void, month?: XDate) => void;
   /** Handler which gets executed when press arrow icon right. It receive a callback can go next month */
@@ -85,6 +87,8 @@ class CalendarHeader extends Component<Props> {
     hideArrows: PropTypes.bool,
     /** Replace default arrows with custom ones (direction can be 'left' or 'right') */
     renderArrow: PropTypes.func,
+    /** Replace default arrows change year with custom ones (direction can be 'left' or 'right') */
+    renderArrowYear: PropTypes.func,
     /** Handler which gets executed when press arrow icon left. It receive a callback can go back month */
     onPressArrowLeft: PropTypes.func,
     /** Handler which gets executed when press arrow icon right. It receive a callback can go next month */
@@ -124,6 +128,7 @@ class CalendarHeader extends Component<Props> {
       'showWeekNumbers',
       'monthFormat',
       'renderArrow',
+      'renderArrowYear',
       'disableArrowLeft',
       'disableArrowRight',
       'renderHeader'
@@ -235,6 +240,36 @@ class CalendarHeader extends Component<Props> {
     );
   }
 
+  renderArrowYear(direction: Direction) {
+    const {hideArrows, disableArrowLeft, disableArrowRight, renderArrowYear, testID, addMonth} = this.props;
+    if (hideArrows) {
+      return <View />;
+    }
+    const isLeft = direction === 'left';
+    const id = isLeft ? CHANGE_MONTH_LEFT_ARROW : CHANGE_MONTH_RIGHT_ARROW;
+    const testId = testID ? `${id}-${testID}` : id;
+    const onPress = isLeft ? () => {addMonth?.(-12)} : () => {addMonth?.(12)};
+    const imageSource = isLeft ? require('../img/previous.png') : require('../img/next.png');
+    const renderArrowDirection = isLeft ? 'left' : 'right';
+    const shouldDisable = isLeft ? disableArrowLeft : disableArrowRight;
+
+    return (
+      <TouchableOpacity
+        onPress={!shouldDisable ? onPress : undefined}
+        disabled={shouldDisable}
+        style={this.style.arrow}
+        hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
+        testID={testId}
+      >
+        {renderArrowYear ? (
+          renderArrowYear(renderArrowDirection)
+        ) : (
+          <Image source={imageSource} style={shouldDisable ? this.style.disabledArrowImage : this.style.arrowImage} />
+        )}
+      </TouchableOpacity>
+    );
+  }
+
   renderIndicator() {
     const {displayLoadingIndicator, theme, testID} = this.props;
 
@@ -263,7 +298,7 @@ class CalendarHeader extends Component<Props> {
   }
 
   render() {
-    const {style, testID, disableArrowRight} = this.props;
+    const {style, testID} = this.props;
 
     return (
       <View
@@ -280,13 +315,12 @@ class CalendarHeader extends Component<Props> {
         importantForAccessibility={this.props.importantForAccessibility} // Android
       >
         <View style={this.style.header}>
-          <TouchableOpacity disabled={disableArrowRight} onPress={this.onPressRight}> 
-            <View style={this.style.headerContainer}>
-                {this.renderHeader()}
-                {this.renderIndicator()}
-                {this.renderArrow('right')}
-            </View>
-          </TouchableOpacity>
+          <View style={this.style.headerContainer}>
+            {this.renderArrowYear('left')}
+            {this.renderHeader()}
+            {this.renderIndicator()}
+            {this.renderArrowYear('right')}
+          </View>
           <View style={this.style.headerContainer}>
             {this.renderArrow('left')}
             {this.renderArrow('right')}
