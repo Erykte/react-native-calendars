@@ -128,6 +128,7 @@ class CalendarHeader extends Component<Props> {
       'showWeekNumbers',
       'monthFormat',
       'renderArrow',
+      'renderArrowYear',
       'disableArrowLeft',
       'disableArrowRight',
       'renderHeader'
@@ -240,7 +241,7 @@ class CalendarHeader extends Component<Props> {
   }
 
   renderArrowYear(direction: Direction) {
-    const {hideArrows, disableArrowLeft, disableArrowRight, renderArrow, testID, addMonth} = this.props;
+    const {hideArrows, disableArrowLeft, disableArrowRight, renderArrowYear, testID, addMonth} = this.props;
     if (hideArrows) {
       return <View />;
     }
@@ -260,8 +261,8 @@ class CalendarHeader extends Component<Props> {
         hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
         testID={testId}
       >
-        {renderArrow ? (
-          renderArrow(renderArrowDirection)
+        {renderArrowYear ? (
+          renderArrowYear(renderArrowDirection)
         ) : (
           <Image source={imageSource} style={shouldDisable ? this.style.disabledArrowImage : this.style.arrowImage} />
         )}
