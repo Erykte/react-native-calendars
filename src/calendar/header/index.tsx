@@ -30,6 +30,7 @@ import styleConstructor from './style';
 import {Theme, Direction} from '../../types';
 
 interface Props {
+  isFormatBuddhistYear?: boolean;
   theme?: Theme;
   firstDay?: number;
   displayLoadingIndicator?: boolean;
@@ -69,6 +70,7 @@ class CalendarHeader extends Component<Props> {
   static displayName = 'CalendarHeader';
 
   static propTypes = {
+    isFormatBuddhistYear: PropTypes.bool,
     theme: PropTypes.object,
     firstDay: PropTypes.number,
     displayLoadingIndicator: PropTypes.bool,
@@ -181,7 +183,7 @@ class CalendarHeader extends Component<Props> {
   });
 
   renderHeader = () => {
-    const {renderHeader, month, monthFormat, testID, webAriaLevel} = this.props;
+    const {renderHeader, month, monthFormat, testID, webAriaLevel, isFormatBuddhistYear} = this.props;
     const webProps = Platform.OS === 'web' ? {'aria-level': webAriaLevel} : {};
 
     if (renderHeader) {
@@ -196,7 +198,8 @@ class CalendarHeader extends Component<Props> {
           testID={testID ? `${HEADER_MONTH_NAME}-${testID}` : HEADER_MONTH_NAME}
           {...webProps}
         >
-          {formatNumbers(month?.toString(monthFormat))}
+          
+          {isFormatBuddhistYear ? `${formatNumbers(month?.toString('MMMM'))} ${formatNumbers(Number(month?.getFullYear()) + 543)}` : formatNumbers(month?.toString(monthFormat))}
         </Text>
       </Fragment>
     );
@@ -260,7 +263,7 @@ class CalendarHeader extends Component<Props> {
   }
 
   render() {
-    const {style, testID} = this.props;
+    const {style, testID, disableArrowRight} = this.props;
 
     return (
       <View
@@ -277,12 +280,17 @@ class CalendarHeader extends Component<Props> {
         importantForAccessibility={this.props.importantForAccessibility} // Android
       >
         <View style={this.style.header}>
-          {this.renderArrow('left')}
+          <TouchableOpacity disabled={disableArrowRight} onPress={this.onPressRight}> 
+            <View style={this.style.headerContainer}>
+                {this.renderHeader()}
+                {this.renderIndicator()}
+                {this.renderArrow('right')}
+            </View>
+          </TouchableOpacity>
           <View style={this.style.headerContainer}>
-            {this.renderHeader()}
-            {this.renderIndicator()}
+            {this.renderArrow('left')}
+            {this.renderArrow('right')}
           </View>
-          {this.renderArrow('right')}
         </View>
         {this.renderDayNames()}
       </View>

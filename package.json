@@ -3,7 +3,7 @@
   "version": "1.22.0",
   "main": "src/index.ts",
   "types": "src/index.d.ts",
-  "description": "React Native Calendar Components",
+  "description": "React Native Calendar Components Fork by Isarasoftware",
   "scripts": {
     "build": "xcodebuild -project ios/CalendarsExample.xcodeproj build",
     "build:ts": "tsc",
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wix/react-native-calendars"
+    "url": "git+https://github.com:Erykte/react-native-calendars#task/re-style-calendar"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
